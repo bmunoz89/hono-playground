@@ -1,0 +1,13 @@
+@host=http://localhost:3000/api
+
+### POST
+POST {{host}}/main
+Content-Type: application/json
+
+{
+  "foo": "baz",
+  "bar": 4321
+}
+
+### GET
+GET {{host}}/main/foo/8000
