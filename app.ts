@@ -1,15 +1,22 @@
+import env from "@env";
+import mainRouter from "@routes/main.router";
+import testRouter from "@routes/test.router";
+import type { Serve } from "bun";
 import { Hono } from "hono";
-import "./env";
-import mainRoutes from "./routes/main.routes";
+import { showRoutes } from "hono/dev";
 
-const api = new Hono();
-api.route("/main", mainRoutes);
+const app = new Hono()
+  .basePath("/api")
+  .route("/main", mainRouter)
+  .route("/test", testRouter);
 
-const app = new Hono();
-app.route("/api", api);
+if (env.NODE_ENV !== "production") {
+  showRoutes(app);
+}
 
-Bun.serve({
+export type AppType = typeof app;
+
+export default {
   fetch: app.fetch,
-  port: Bun.env.PORT,
-});
-console.log(`Running at http://localhost:${Bun.env.PORT}`);
+  port: env.PORT,
+} satisfies Serve;
