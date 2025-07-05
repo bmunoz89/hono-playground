@@ -7,14 +7,15 @@
     "dev": "bun --hot run app.ts"
   },
   "devDependencies": {
-    "@types/bun": "^1.1.6"
+    "@types/bun": "^1.2.18",
+    "@types/node": "^24.0.10"
   },
   "peerDependencies": {
-    "typescript": "^5.5.4"
+    "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@hono/zod-validator": "^0.2.2",
-    "hono": "^4.5.5",
-    "zod": "^3.23.8"
+    "@hono/zod-validator": "^0.7.0",
+    "hono": "^4.8.4",
+    "zod": "^3.25.74"
   }
 }
