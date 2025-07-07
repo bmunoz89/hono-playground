@@ -4,7 +4,7 @@ import testRouter from "@routes/test.router";
 import type { Env } from "@types";
 import type { Serve } from "bun";
 import { Hono } from "hono";
-import { contextStorage } from "hono/context-storage";
+// import { contextStorage } from "hono/context-storage";
 import { showRoutes } from "hono/dev";
 import { logger } from "hono/logger";
 import { requestId } from "hono/request-id";

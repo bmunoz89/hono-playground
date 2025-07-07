@@ -1,0 +1,6 @@
+services:
+  redis:
+    image: "redis:8-alpine"
+    ports:
+      - target: 6379
+        published: 6379
