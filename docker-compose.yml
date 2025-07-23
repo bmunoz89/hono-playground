@@ -1,0 +1,33 @@
+services:
+  api:
+    image: "bmunoz89/hono-playground:1.0.0-dev"
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      target: dev
+    ports:
+      - target: 3000
+        published: 3000
+    environment:
+      REDIS_MODE: standard
+    volumes:
+      - type: bind
+        source: ./src
+        target: /app/src
+        read_only: true
+    networks:
+      - backend
+    depends_on:
+      redis:
+        condition: service_started
+        required: true
+  redis:
+    image: "redis:8-alpine"
+    ports:
+      - target: 6379
+        published: 6379
+    networks:
+      - backend
+networks:
+  backend:
+    driver: bridge
