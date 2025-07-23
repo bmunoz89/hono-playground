@@ -11,6 +11,12 @@ const envSchema = z
     NODE_ENV: z
       .enum(["development", "production", "test"])
       .default("development"),
+    REDIS_HOST: z.string().default("127.0.0.1"),
+    REDIS_PORT: z
+      .string()
+      .or(z.number())
+      .default(6379)
+      .pipe(z.coerce.number().int().min(0).max(65535)),
   })
   .readonly();
 

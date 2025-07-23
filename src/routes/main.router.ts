@@ -1,6 +1,6 @@
+import { jsonSchema, paramSchema } from "@/schemas/main.schema";
+import type { Env } from "@/types";
 import { zValidator } from "@hono/zod-validator";
-import { jsonSchema, paramSchema } from "@routes/main.schema";
-import type { Env } from "@types";
 import { Hono } from "hono";
 
 export default new Hono<Env>()
