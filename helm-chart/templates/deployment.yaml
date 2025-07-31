@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-api
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Values.app.label }}
+spec:
+  replicas: {{ .Values.app.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app.label }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.label }}
+    spec:
+      containers:
+        - name: {{ .Values.app.containerName }}
+          image: "{{ .Values.app.image.repository }}:{{ .Values.app.image.tag }}"
+          imagePullPolicy: {{ .Values.app.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.app.service.port }}
+          env:
+            - name: REDIS_MODE
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-hono-playground-configmap
+                  key: REDIS_MODE
+            - name: REDIS_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-hono-playground-configmap
+                  key: REDIS_USERNAME
+            - name: REDIS_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-hono-playground-configmap
+                  key: REDIS_PASSWORD
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-hono-playground-configmap
+                  key: REDIS_HOST
+            - name: REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-hono-playground-configmap
+                  key: REDIS_PORT
+            - name: REDIS_SENTINEL_NODES
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-hono-playground-configmap
+                  key: REDIS_SENTINEL_NODES
+            - name: REDIS_MASTER_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-hono-playground-configmap
+                  key: REDIS_MASTER_NAME
+            - name: REDIS_CLUSTER_NODES
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-hono-playground-configmap
+                  key: REDIS_CLUSTER_NODES

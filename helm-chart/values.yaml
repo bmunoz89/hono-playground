@@ -1,0 +1,45 @@
+app:
+  label: hp-app
+  replicaCount: 2
+  image:
+    repository: bmunoz89/hono-playground
+    tag: 1.0.0
+    pullPolicy: IfNotPresent
+  containerName: hp-app
+  service:
+    name: hp-service
+    type: LoadBalancer
+    port: 3000
+  env:
+    REDIS_USERNAME: "default"
+    REDIS_PASSWORD: "P@ssw0rd"
+    REDIS_MODE: "standard"
+    REDIS_HOST: "redis-standard-master.shared.svc.cluster.local"
+    REDIS_PORT: "6379"
+    REDIS_MASTER_NAME: "mymaster"
+    REDIS_SENTINEL_NODES: |
+      [
+        {
+          "host": "redis-sentinel-node-0.redis-sentinel-headless.shared.svc.cluster.local",
+          "port": 26379
+        },
+        {
+          "host": "redis-sentinel-node-1.redis-sentinel-headless.shared.svc.cluster.local",
+          "port": 26379
+        }
+      ]
+    REDIS_CLUSTER_NODES: |
+      [
+        {
+          "host": "redis-cluster-0-svc.shared.svc.cluster.local",
+          "port": 6379
+        },
+        {
+          "host": "redis-cluster-1-svc.shared.svc.cluster.local",
+          "port": 6379
+        },
+        {
+          "host": "redis-cluster-2-svc.shared.svc.cluster.local",
+          "port": 6379
+        }
+      ]
