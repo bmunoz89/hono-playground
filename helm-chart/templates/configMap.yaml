@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-hono-playground-configmap
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Values.app.label }}
+data:
+  REDIS_MODE: {{ .Values.app.env.REDIS_MODE }}
+  REDIS_USERNAME: {{ .Values.app.env.REDIS_USERNAME }}
+  REDIS_PASSWORD: {{ .Values.app.env.REDIS_PASSWORD }}
+  REDIS_HOST: {{ .Values.app.env.REDIS_HOST }}
+  REDIS_PORT: {{ .Values.app.env.REDIS_PORT | quote }}
+  REDIS_SENTINEL_NODES:
+   {{- toYaml .Values.app.env.REDIS_SENTINEL_NODES | nindent 12 }}
+  REDIS_MASTER_NAME: {{ .Values.app.env.REDIS_MASTER_NAME }}
+  REDIS_CLUSTER_NODES:
+   {{- toYaml .Values.app.env.REDIS_CLUSTER_NODES | nindent 12 }}
